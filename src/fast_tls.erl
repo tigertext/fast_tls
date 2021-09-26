@@ -471,6 +471,10 @@ load_nif(SOPath) ->
             ok;
         {error, already_loaded} ->
             ok;
+        {reload, Msg} -> 
+            error_logger:error_msg("failed to load TLS NIF, skip: ~s ~n",
+                [Msg]),
+            ok; 
         {error, ErrorDesc} = Err ->
             error_logger:error_msg("failed to load TLS NIF: ~s~n",
                                    [erl_ddll:format_error(ErrorDesc)]),
